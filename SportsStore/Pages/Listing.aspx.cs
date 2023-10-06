@@ -19,6 +19,9 @@ namespace SportsStore.Pages
         }
         protected IEnumerable<Product> GetProducts()
         {
+            //OrderBy方法确保始终按照ProductID顺序处理Product对象
+            //Skip方法忽略在所需页面之前出现过的Product对象
+            //Take方法选择用户显示的Product对象数量
             return repo.Products
                 .OrderBy(p => p.ProductID)
                 .Skip((CurrentPage - 1) * pageSize)
@@ -29,8 +32,18 @@ namespace SportsStore.Pages
             get
             {
                 int page;
-                return int.TryParse(Request.QueryString["page"], out page) ? page : 1;
+                page =  int.TryParse(Request.QueryString["page"], out page) ? page : 1;
                 //flase返回1,true返回page
+                return page > MaxPage ? MaxPage : page;
+                //如果page > MaxPage为真（例如200>3）则返回MaxPage,否则返回Page，即当超出最大页数时显示最后一个有效页面
+            }
+        }
+        protected int MaxPage
+        {
+            get
+            {
+                //动态返回Procut对象的最大页数
+                return (int)Math.Ceiling((decimal)repo.Products.Count() / pageSize);
             }
         }
     }

@@ -11,7 +11,8 @@ namespace SportsStore
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            //定义新的URL方案
+            //配置新的URL方案
+            routes.MapPageRoute(null, "list/{category}/{page}", "~/Pages/Listing.aspx");
             routes.MapPageRoute(null, "list/{page}", "~/Pages/Listing.aspx");
             routes.MapPageRoute(null, "", "~/Pages/Listing.aspx");
             routes.MapPageRoute(null, "list", "~/Pages/Listing.aspx");

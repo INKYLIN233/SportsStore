@@ -22,7 +22,7 @@ namespace SportsStore.Pages
             //OrderBy方法确保始终按照ProductID顺序处理Product对象
             //Skip方法忽略在所需页面之前出现过的Product对象
             //Take方法选择用户显示的Product对象数量
-            return repo.Products
+            return FilterProducts()
                 .OrderBy(p => p.ProductID)
                 .Skip((CurrentPage - 1) * pageSize)
                 .Take(pageSize);
@@ -44,8 +44,16 @@ namespace SportsStore.Pages
             get
             {
                 //动态返回Procut对象的最大页数
-                return (int)Math.Ceiling((decimal)repo.Products.Count() / pageSize);
+                int prodCount = FilterProducts().Count();
+                return (int)Math.Ceiling((decimal)prodCount / pageSize);
             }
+        }
+
+        private IEnumerable<Product> FilterProducts()
+        {
+            IEnumerable<Product> products = repo.Products;
+            string currentCategory = (string)RouteData.Values["category"] ?? Request.QueryString["category"];
+            return currentCategory == null ? products : products.Where(p => p.Category == currentCategory);
         }
 
         private int GetPageFromRequest()

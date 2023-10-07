@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CartView.aspx.cs"
-    Inherits="SportsStore.Pages.CartView" MasterPageFile="~/Pages/Store.Master" %>
+    Inherits="SportsStore.Pages.CartView" MasterPageFile="~/Pages/Store.Master" EnableViewState="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="bodyContent" runat="server">
     <div id="content">
@@ -20,6 +20,10 @@
                             <td><%# Item.Product.Name %></td>
                             <td><%# Item.Product.Price.ToString("c") %></td>
                             <td><%# (Item.Quantity * Item.Product.Price).ToString("c") %></td>
+                            <td>
+                                <button type="submit" class="actionButtons" name="remove"
+                                    value="<%#Item.Product.ProductID %>">Remove</button>
+                            </td>
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>

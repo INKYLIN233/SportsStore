@@ -3,9 +3,10 @@ using SportsStore.Models.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Web.Routing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SportsStore.Pages.Helpers;
 
 namespace SportsStore.Pages
 {
@@ -15,9 +16,24 @@ namespace SportsStore.Pages
         private int pageSize = 4;   //分页
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (IsPostBack)
+            {
+                int selectedProductId;
+                if (int.TryParse(Request.Form["add"],out selectedProductId) )
+                {
+                    Product selectedProduct = repo.Products
+                        .Where(p => p.ProductID == selectedProductId)
+                        .FirstOrDefault();
+                    if (selectedProduct != null)
+                    {
+                        SessionHelper.GetCart(Session).AddItem(selectedProduct, 1);
+                        SessionHelper.Set(Session, SessionKey.RETURN_URL, Request.RawUrl);
+                        Response.Redirect(RouteTable.Routes.GetVirtualPath(null, "cart", null).VirtualPath);
+                    }
+                }
+            }
         }
-        protected IEnumerable<Product> GetProducts()
+        public IEnumerable<Product> GetProducts()
         {
             //OrderBy方法确保始终按照ProductID顺序处理Product对象
             //Skip方法忽略在所需页面之前出现过的Product对象

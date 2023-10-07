@@ -32,7 +32,8 @@ namespace SportsStore.Pages
             get
             {
                 int page;
-                page =  int.TryParse(Request.QueryString["page"], out page) ? page : 1;
+                //page = int.TryParse(Request.QueryString["page"], out page) ? page : 1;
+                page = GetPageFromRequest();
                 //flase返回1,true返回page
                 return page > MaxPage ? MaxPage : page;
                 //如果page > MaxPage为真（例如200>3）则返回MaxPage,否则返回Page，即当超出最大页数时显示最后一个有效页面
@@ -45,6 +46,14 @@ namespace SportsStore.Pages
                 //动态返回Procut对象的最大页数
                 return (int)Math.Ceiling((decimal)repo.Products.Count() / pageSize);
             }
+        }
+
+        private int GetPageFromRequest()
+        {
+            int page;
+            //从URL中获取不为空的可用变量值，如果没有可用变量则将检查Request.QueryString属性
+            string reqValue = (string)RouteData.Values["page"] ?? Request.QueryString["page"];
+            return (reqValue != null && int.TryParse(reqValue, out page)) ? page : 1;
         }
     }
 }

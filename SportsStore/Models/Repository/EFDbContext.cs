@@ -10,5 +10,6 @@ namespace SportsStore.Models.Repository
     {
         /* 将Product模型类型用于表示Products表中的行 */
         public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

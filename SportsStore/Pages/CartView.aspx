@@ -35,6 +35,7 @@
         </table>
         <p class="actionButtons">
             <a href="<%= ReturnUrl %>">Continue Shopping</a>
+            <a href="<%= CheckoutUrl %>">Checkout</a>
         </p>
     </div>
 </asp:Content>

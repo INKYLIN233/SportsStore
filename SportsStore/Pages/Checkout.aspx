@@ -18,21 +18,9 @@
             </div>
             <h3>Address</h3>
             <div>
-                <label for="line1">Line 1:</label>
+                <label for="Adress">Adress:</label>
                 <%--<input id="line1" name="line1" />--%>
-               <SX:VInput Property="Line1" runat="server" />
-
-            </div>
-            <div>
-                <label for="line2">Line 2:</label>
-                <%--<input id="line2" name="line2" />--%>
-                <SX:VInput Property="Line2" runat="server" />
-
-            </div>
-            <div>
-                <label for="line3">Line 3:</label>
-                <%--<input id="line3" name="line3" />--%>
-                <SX:VInput Property="Line3" runat="server" />
+               <SX:VInput Property="Adress" runat="server" />
 
             </div>
             <div>
@@ -42,9 +30,9 @@
 
             </div>
             <div>
-                <label for="state">State:</label>
+                <label for="province">Province:</label>
                 <%--<input id="state" name="state" />--%>
-                <SX:VInput Property="State" runat="server" />
+                <SX:VInput Property="Province" runat="server" />
 
             </div>
 

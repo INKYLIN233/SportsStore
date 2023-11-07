@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CartView.aspx.cs"
     Inherits="SportsStore.Pages.CartView" MasterPageFile="~/Pages/Store.Master" EnableViewState="false" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="bodyContent" runat="server">
     <div id="content">
         <h2>Your cart</h2>
